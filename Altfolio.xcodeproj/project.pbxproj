@@ -17,7 +17,6 @@
 		837B2D7428BA4BA8009A5888 /* Altfolio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 837B2D7228BA4BA8009A5888 /* Altfolio.xcdatamodeld */; };
 		837B2D7628BA4BAC009A5888 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 837B2D7528BA4BAC009A5888 /* Assets.xcassets */; };
 		837B2D7928BA4BAC009A5888 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 837B2D7728BA4BAC009A5888 /* LaunchScreen.storyboard */; };
-		837B2D8428BA4BAD009A5888 /* AltfolioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837B2D8328BA4BAD009A5888 /* AltfolioTests.swift */; };
 		837B2D8E28BA4BAD009A5888 /* AltfolioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837B2D8D28BA4BAD009A5888 /* AltfolioUITests.swift */; };
 		837B2D9028BA4BAD009A5888 /* AltfolioUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837B2D8F28BA4BAD009A5888 /* AltfolioUITestsLaunchTests.swift */; };
 		837B2D9D28BA4C02009A5888 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837B2D9C28BA4C02009A5888 /* CoordinatorProtocol.swift */; };
@@ -86,7 +85,6 @@
 		837B2D7828BA4BAC009A5888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		837B2D7A28BA4BAC009A5888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		837B2D7F28BA4BAC009A5888 /* AltfolioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AltfolioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		837B2D8328BA4BAD009A5888 /* AltfolioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltfolioTests.swift; sourceTree = "<group>"; };
 		837B2D8928BA4BAD009A5888 /* AltfolioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AltfolioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		837B2D8D28BA4BAD009A5888 /* AltfolioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltfolioUITests.swift; sourceTree = "<group>"; };
 		837B2D8F28BA4BAD009A5888 /* AltfolioUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltfolioUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 		837B2D8228BA4BAD009A5888 /* AltfolioTests */ = {
 			isa = PBXGroup;
 			children = (
-				837B2D8328BA4BAD009A5888 /* AltfolioTests.swift */,
 				8395EEC52904469200CF2BD3 /* Main */,
 			);
 			path = AltfolioTests;
@@ -695,7 +692,6 @@
 			files = (
 				8395EECB29044B3600CF2BD3 /* PortfolioTabCoordinatorTest.swift in Sources */,
 				836546D6291EB0F20083DFC7 /* AnalyticsCoordinatorTest.swift in Sources */,
-				837B2D8428BA4BAD009A5888 /* AltfolioTests.swift in Sources */,
 				8395EEC92904491900CF2BD3 /* MainCoordinatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
