@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52ABA785B86C13D1304C23D3 /* Pods_Altfolio_AltfolioUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723308F11CD5E98A0FF96908 /* Pods_Altfolio_AltfolioUITests.framework */; };
+		AF1200000000000000000001 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AF1200000000000000000002 /* Alamofire */; };
 		83067D8928BFBB33004AC4CE /* CoinOfCMCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83067D8828BFBB33004AC4CE /* CoinOfCMCModel.swift */; };
 		834F7E052996A7A600B39244 /* ExtensionSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834F7E042996A7A600B39244 /* ExtensionSwiftUI.swift */; };
 		836546D6291EB0F20083DFC7 /* AnalyticsCoordinatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836546D5291EB0F20083DFC7 /* AnalyticsCoordinatorTest.swift */; };
@@ -48,8 +48,6 @@
 		83F697C2291D56FB00B955CD /* CoinCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F697BE291D56FB00B955CD /* CoinCD+CoreDataClass.swift */; };
 		83F697C3291D56FB00B955CD /* CoinCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F697BF291D56FB00B955CD /* CoinCD+CoreDataProperties.swift */; };
 		83F697C5291D5E2D00B955CD /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F697C4291D5E2D00B955CD /* TransactionCell.swift */; };
-		9F87B9343FEFF5F082D77C51 /* Pods_Altfolio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5370B386A7CC6D0723F8115 /* Pods_Altfolio.framework */; };
-		E76BD8CFE58D015E88A50DAA /* Pods_AltfolioTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD075FEB0161AA9678D1661 /* Pods_AltfolioTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,9 +68,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		15EBF9D0A4A03717FBC8271F /* Pods-AltfolioTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltfolioTests.release.xcconfig"; path = "Target Support Files/Pods-AltfolioTests/Pods-AltfolioTests.release.xcconfig"; sourceTree = "<group>"; };
-		4BD075FEB0161AA9678D1661 /* Pods_AltfolioTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AltfolioTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		723308F11CD5E98A0FF96908 /* Pods_Altfolio_AltfolioUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Altfolio_AltfolioUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83067D8828BFBB33004AC4CE /* CoinOfCMCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinOfCMCModel.swift; sourceTree = "<group>"; };
 		834F7E042996A7A600B39244 /* ExtensionSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionSwiftUI.swift; sourceTree = "<group>"; };
 		836546D5291EB0F20083DFC7 /* AnalyticsCoordinatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsCoordinatorTest.swift; sourceTree = "<group>"; };
@@ -117,12 +112,6 @@
 		83F697BE291D56FB00B955CD /* CoinCD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoinCD+CoreDataClass.swift"; sourceTree = "<group>"; };
 		83F697BF291D56FB00B955CD /* CoinCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoinCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		83F697C4291D5E2D00B955CD /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
-		A0D462B099F322C52B026A25 /* Pods-AltfolioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AltfolioTests.debug.xcconfig"; path = "Target Support Files/Pods-AltfolioTests/Pods-AltfolioTests.debug.xcconfig"; sourceTree = "<group>"; };
-		ADA986A2BE6D3C50FDD23600 /* Pods-Altfolio-AltfolioUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Altfolio-AltfolioUITests.debug.xcconfig"; path = "Target Support Files/Pods-Altfolio-AltfolioUITests/Pods-Altfolio-AltfolioUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D5370B386A7CC6D0723F8115 /* Pods_Altfolio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Altfolio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D94D9C55A43F8216AB7E27E5 /* Pods-Altfolio-AltfolioUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Altfolio-AltfolioUITests.release.xcconfig"; path = "Target Support Files/Pods-Altfolio-AltfolioUITests/Pods-Altfolio-AltfolioUITests.release.xcconfig"; sourceTree = "<group>"; };
-		E61DCF7785A6E896B5DB55A6 /* Pods-Altfolio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Altfolio.debug.xcconfig"; path = "Target Support Files/Pods-Altfolio/Pods-Altfolio.debug.xcconfig"; sourceTree = "<group>"; };
-		EDDBE2912762F6E800A2DA19 /* Pods-Altfolio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Altfolio.release.xcconfig"; path = "Target Support Files/Pods-Altfolio/Pods-Altfolio.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F87B9343FEFF5F082D77C51 /* Pods_Altfolio.framework in Frameworks */,
+				AF1200000000000000000001 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +127,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E76BD8CFE58D015E88A50DAA /* Pods_AltfolioTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,26 +134,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52ABA785B86C13D1304C23D3 /* Pods_Altfolio_AltfolioUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		002D4C6D388F023AEE72CB55 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E61DCF7785A6E896B5DB55A6 /* Pods-Altfolio.debug.xcconfig */,
-				EDDBE2912762F6E800A2DA19 /* Pods-Altfolio.release.xcconfig */,
-				ADA986A2BE6D3C50FDD23600 /* Pods-Altfolio-AltfolioUITests.debug.xcconfig */,
-				D94D9C55A43F8216AB7E27E5 /* Pods-Altfolio-AltfolioUITests.release.xcconfig */,
-				A0D462B099F322C52B026A25 /* Pods-AltfolioTests.debug.xcconfig */,
-				15EBF9D0A4A03717FBC8271F /* Pods-AltfolioTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		834F7E032996A75600B39244 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,8 +181,6 @@
 				837B2D8228BA4BAD009A5888 /* AltfolioTests */,
 				837B2D8C28BA4BAD009A5888 /* AltfolioUITests */,
 				837B2D6728BA4BA7009A5888 /* Products */,
-				002D4C6D388F023AEE72CB55 /* Pods */,
-				95B78ED9A7E4C7BEF13FB917 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -402,16 +374,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		95B78ED9A7E4C7BEF13FB917 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D5370B386A7CC6D0723F8115 /* Pods_Altfolio.framework */,
-				723308F11CD5E98A0FF96908 /* Pods_Altfolio_AltfolioUITests.framework */,
-				4BD075FEB0161AA9678D1661 /* Pods_AltfolioTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -419,17 +381,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 837B2D9328BA4BAD009A5888 /* Build configuration list for PBXNativeTarget "Altfolio" */;
 			buildPhases = (
-				123EE773A394F35D0DF3EDCC /* [CP] Check Pods Manifest.lock */,
 				837B2D6228BA4BA7009A5888 /* Sources */,
 				837B2D6328BA4BA7009A5888 /* Frameworks */,
 				837B2D6428BA4BA7009A5888 /* Resources */,
-				A999C13BF33247C67EDB75BD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Altfolio;
+			packageProductDependencies = (
+				AF1200000000000000000002 /* Alamofire */,
+			);
 			productName = Altfolio;
 			productReference = 837B2D6628BA4BA7009A5888 /* Altfolio.app */;
 			productType = "com.apple.product-type.application";
@@ -438,7 +401,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 837B2D9628BA4BAD009A5888 /* Build configuration list for PBXNativeTarget "AltfolioTests" */;
 			buildPhases = (
-				053EDE17287CDC8DC8BA4882 /* [CP] Check Pods Manifest.lock */,
 				837B2D7B28BA4BAC009A5888 /* Sources */,
 				837B2D7C28BA4BAC009A5888 /* Frameworks */,
 				837B2D7D28BA4BAC009A5888 /* Resources */,
@@ -457,11 +419,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 837B2D9928BA4BAD009A5888 /* Build configuration list for PBXNativeTarget "AltfolioUITests" */;
 			buildPhases = (
-				89CB9C4E3943660B0A121BC3 /* [CP] Check Pods Manifest.lock */,
 				837B2D8528BA4BAD009A5888 /* Sources */,
 				837B2D8628BA4BAD009A5888 /* Frameworks */,
 				837B2D8728BA4BAD009A5888 /* Resources */,
-				01B5BC047D6F5660DC692104 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -505,6 +465,9 @@
 				Base,
 			);
 			mainGroup = 837B2D5D28BA4BA7009A5888;
+			packageReferences = (
+				AF1200000000000000000003 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 837B2D6728BA4BA7009A5888 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -541,109 +504,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		01B5BC047D6F5660DC692104 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Altfolio-AltfolioUITests/Pods-Altfolio-AltfolioUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Altfolio-AltfolioUITests/Pods-Altfolio-AltfolioUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Altfolio-AltfolioUITests/Pods-Altfolio-AltfolioUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		053EDE17287CDC8DC8BA4882 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AltfolioTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		123EE773A394F35D0DF3EDCC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Altfolio-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		89CB9C4E3943660B0A121BC3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Altfolio-AltfolioUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A999C13BF33247C67EDB75BD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Altfolio/Pods-Altfolio-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Altfolio/Pods-Altfolio-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Altfolio/Pods-Altfolio-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		837B2D6228BA4BA7009A5888 /* Sources */ = {
@@ -850,7 +710,6 @@
 		};
 		837B2D9428BA4BAD009A5888 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E61DCF7785A6E896B5DB55A6 /* Pods-Altfolio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -880,7 +739,6 @@
 		};
 		837B2D9528BA4BAD009A5888 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDDBE2912762F6E800A2DA19 /* Pods-Altfolio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -910,7 +768,6 @@
 		};
 		837B2D9728BA4BAD009A5888 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0D462B099F322C52B026A25 /* Pods-AltfolioTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -935,7 +792,6 @@
 		};
 		837B2D9828BA4BAD009A5888 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15EBF9D0A4A03717FBC8271F /* Pods-AltfolioTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -960,7 +816,6 @@
 		};
 		837B2D9A28BA4BAD009A5888 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADA986A2BE6D3C50FDD23600 /* Pods-Altfolio-AltfolioUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -983,7 +838,6 @@
 		};
 		837B2D9B28BA4BAD009A5888 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D94D9C55A43F8216AB7E27E5 /* Pods-Altfolio-AltfolioUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1044,6 +898,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AF1200000000000000000003 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AF1200000000000000000002 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF1200000000000000000003 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		837B2D7228BA4BA8009A5888 /* Altfolio.xcdatamodeld */ = {
