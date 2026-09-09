@@ -36,8 +36,19 @@ extension CoinCD {
     public var historyArray: [Transaction] {
         let set = history as? Set<Transaction> ?? []
 
-        return set.sorted {
-            $0.dateW < $1.dateW
+        return set.sorted { first, second in
+            switch (first.date, second.date) {
+            case let (firstDate?, secondDate?) where firstDate != secondDate:
+                return firstDate < secondDate
+            case (_?, nil):
+                return true
+            case (nil, _?):
+                return false
+            default:
+                // NSSet has no ordering; use a stable tie-breaker for equal or missing dates.
+                return first.objectID.uriRepresentation().absoluteString
+                    < second.objectID.uriRepresentation().absoluteString
+            }
         }
     }
 

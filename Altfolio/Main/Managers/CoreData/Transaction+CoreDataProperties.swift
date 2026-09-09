@@ -14,13 +14,19 @@ extension Transaction {
     @NSManaged public var date: Date?
     @NSManaged public var relationship: CoinCD?
 
+    private static let displayDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = .autoupdatingCurrent
+        formatter.dateFormat = "dd/MM/yyyy - HH:mm:ss"
+        return formatter
+    }()
+
+    // Display text only. Chronological comparisons must use date directly.
     public var dateW: String {
-        let dateFormatter = DateFormatter()
-        let transactionDate = date ?? Date()
-
-        dateFormatter.dateFormat = "dd/MM/YY - HH:mm:ss"
-
-        return dateFormatter.string(from: transactionDate)
+        guard let date = date else { return "Unknown date" }
+        return Self.displayDateFormatter.string(from: date)
     }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Transaction> {
