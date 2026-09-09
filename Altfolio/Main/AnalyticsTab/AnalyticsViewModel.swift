@@ -18,51 +18,41 @@ struct PieSlice {
 }
 
 final class AnalyticsViewModel: ObservableObject {
-    @Published var pieSlices = [PieSlice]()
+    @Published private(set) var pieSlices = [PieSlice]()
 
     private let coreData: CoreDataProtocol
-
-    private var coinsCD = [CoinCD]()
-    private var totalBalance = 0.0
 
     init(coreData: CoreDataProtocol) {
         self.coreData = coreData
     }
 
-    func calculateCumulativePercentages() {
-        var value: CGFloat = 0
-
-        for i in 0..<pieSlices.count {
-            value += pieSlices[i].percent
-            pieSlices[i].value = value
-        }
-    }
-
     func fetchMyCoins() {
-        coinsCD = coreData.fetchMyCoins()
-        updateTotalBalance()
-        calculatePercentages()
-    }
-
-    private func updateTotalBalance() {
-        var total: Double = 0.0
-
-        for coin in coinsCD {
-            total += (coin.price * coin.amount)
+        let balances = coreData.fetchMyCoins().map { coin in
+            (symbol: coin.symbolW, value: coin.price * coin.amount)
         }
-        totalBalance = total
-    }
-
-    private func calculatePercentages() {
-        pieSlices.removeAll()
-        let onePercent = totalBalance / 100.0
-
-        for coin in coinsCD {
-            pieSlices.append(
-                PieSlice(
-                    symbol: coin.symbolW, r: random(), g: random(), b: random(),
-                    percent: (coin.price * coin.amount) / onePercent, value: 0))
+        let totalBalance = balances.reduce(0.0) { $0 + $1.value }
+        // A pie chart requires finite, nonnegative values and a positive total.
+        guard totalBalance.isFinite, totalBalance > 0,
+            balances.allSatisfy({ $0.value.isFinite && $0.value >= 0 })
+        else {
+            pieSlices = []
+            return
         }
+
+        let positiveBalances = balances.filter { $0.value > 0 }
+        var cumulativePercent: CGFloat = 0
+        let slices = positiveBalances.enumerated().map { index, balance in
+            let percent = CGFloat((balance.value / totalBalance) * 100)
+            cumulativePercent = min(cumulativePercent + percent, 100)
+            if index == positiveBalances.count - 1 {
+                cumulativePercent = 100
+            }
+            return PieSlice(
+                symbol: balance.symbol, r: random(), g: random(), b: random(),
+                percent: percent, value: cumulativePercent
+            )
+        }
+        pieSlices = slices
     }
 
     private func random() -> CGFloat {
