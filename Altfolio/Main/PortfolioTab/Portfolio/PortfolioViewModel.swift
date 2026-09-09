@@ -12,6 +12,7 @@ final class PortfolioViewModel: ObservableObject {
     @Published var coinsCD = [CoinCD]()
     @Published var coins = [Coin]()
     @Published var totalBalance: Int = 0
+    @Published var networkError: NetworkError?
 
     private let coreData: CoreDataProtocol
     private let network: NetworkProtocol
@@ -104,12 +105,21 @@ final class PortfolioViewModel: ObservableObject {
         }
 
         DispatchQueue.main.async {
-            self.network.fetchPriceArray(idString: idString, idArray: idArray) { [weak self] logoDict in
+            self.network.fetchPriceArray(idString: idString, idArray: idArray) { [weak self] result in
                 guard let strongSelf = self else { return }
+                let prices: [String: Double]
+                switch result {
+                case .success(let values):
+                    prices = values
+                    strongSelf.networkError = nil
+                case .failure(let error):
+                    strongSelf.networkError = error
+                    return
+                }
 
                 for (index, _) in strongSelf.coinsCD.enumerated() {
                     if strongSelf.coinsCD[index].id == nil { return }
-                    guard let price = logoDict[strongSelf.coins[index].id] else {
+                    guard let price = prices[strongSelf.coins[index].id] else {
                         print("error guard updatePrice()")
                         return
                     }
@@ -124,10 +134,19 @@ final class PortfolioViewModel: ObservableObject {
     }
 
     func fetchPrice(coinId: String) {
-        network.fetchPriceArray(idString: coinId, idArray: [coinId]) { [weak self] logoDict in
+        network.fetchPriceArray(idString: coinId, idArray: [coinId]) { [weak self] result in
             guard let strongSelf = self else { return }
-            strongSelf.coins.filter { $0.id == coinId }.first?.price = logoDict[coinId] ?? 0.0
-            strongSelf.coinsCD.filter { $0.id == coinId }.first?.price = logoDict[coinId] ?? 0.0
+            let prices: [String: Double]
+            switch result {
+            case .success(let values):
+                prices = values
+                strongSelf.networkError = nil
+            case .failure(let error):
+                strongSelf.networkError = error
+                return
+            }
+            strongSelf.coins.filter { $0.id == coinId }.first?.price = prices[coinId] ?? 0.0
+            strongSelf.coinsCD.filter { $0.id == coinId }.first?.price = prices[coinId] ?? 0.0
             strongSelf.coreData.saveContext()
             strongSelf.updateTotalBalance()
         }
@@ -147,8 +166,17 @@ final class PortfolioViewModel: ObservableObject {
         }
 
         DispatchQueue.main.async {
-            self.network.fetchLogoUrlArray(idString: idString, idArray: idArray) { [weak self] logoDict in
+            self.network.fetchLogoUrlArray(idString: idString, idArray: idArray) { [weak self] result in
                 guard let strongSelf = self else { return }
+                let logoDict: [String: String]
+                switch result {
+                case .success(let values):
+                    logoDict = values
+                    strongSelf.networkError = nil
+                case .failure(let error):
+                    strongSelf.networkError = error
+                    return
+                }
                 for (index, _) in strongSelf.coinsMap.enumerated() {
                     guard let urlStr = logoDict[strongSelf.coinsMap[index].id] else {
                         print("error guard updateURL()")

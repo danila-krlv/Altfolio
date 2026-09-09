@@ -120,10 +120,16 @@ extension PortfolioCoordinator: CoordinatorProtocol {
         rootViewController.setViewControllers([UIHostingController(rootView: portfolioView)], animated: true)
 
         DispatchQueue.main.async {
-            self.network.fetchMap { [weak self] coins in
+            self.network.fetchMap { [weak self] result in
                 guard let strongSelf = self else { return }
-                strongSelf.viewModel.coinsMap = coins
-                strongSelf.viewModel.updateURL()
+                switch result {
+                case .success(let coins):
+                    strongSelf.viewModel.networkError = nil
+                    strongSelf.viewModel.coinsMap = coins
+                    strongSelf.viewModel.updateURL()
+                case .failure(let error):
+                    strongSelf.viewModel.networkError = error
+                }
             }
         }
     }
