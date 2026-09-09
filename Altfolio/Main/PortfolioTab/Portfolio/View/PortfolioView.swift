@@ -13,6 +13,9 @@ struct PortfolioView: View {
     var showAddCoin: () -> Void = {}
     var showDetails: (Coin) -> Void = { _ in }
 
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var isVisible = false
+
     init(viewModel: PortfolioViewModel) {
         self.viewModel = viewModel
     }
@@ -56,6 +59,23 @@ struct PortfolioView: View {
                         .padding(1.0)
                     }
                 }
+            }
+        }
+        .onAppear {
+            isVisible = true
+            if scenePhase == .active {
+                viewModel.startPriceUpdates()
+            }
+        }
+        .onDisappear {
+            isVisible = false
+            viewModel.stopPriceUpdates()
+        }
+        .onChange(of: scenePhase) { phase in
+            if isVisible && phase == .active {
+                viewModel.startPriceUpdates()
+            } else {
+                viewModel.stopPriceUpdates()
             }
         }
     }
