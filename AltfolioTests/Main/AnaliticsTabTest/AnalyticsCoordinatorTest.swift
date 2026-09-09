@@ -2,31 +2,29 @@
 //  AnalyticsCoordinatorTest.swift
 //  AltfolioTests
 //
-//  Created by Данила on 11.11.2022.
+//  Created by Danila on 11.11.2022.
 //
 
 import XCTest
 @testable import Altfolio
 
 class AnalyticsCoordinatorTest: XCTestCase {
+    var sut: AnalyticsCoordinator!
 
-    var sup: AnalyticsCoordinator!
-    
     override func setUpWithError() throws {
-        sup = AnalyticsCoordinator()
-        sup.start()
+        sut = AnalyticsCoordinator()
+        sut.start()
     }
 
     override func tearDownWithError() throws {
-        sup = nil 
+        sut = nil
     }
 
     func testViewModelNotNil() throws {
-        XCTAssertNotNil(sup.viewModel)
-    }
-    
-    func testPortfolioViewNotNil() throws {
-        XCTAssertNotNil(sup.analyticsView)
+        XCTAssertNotNil(sut.viewModel)
     }
 
+    func testAnalyticsViewNotNil() throws {
+        XCTAssertNotNil(sut.analyticsView)
+    }
 }

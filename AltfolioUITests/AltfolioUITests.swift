@@ -2,13 +2,12 @@
 //  AltfolioUITests.swift
 //  AltfolioUITests
 //
-//  Created by Данила on 27.08.2022.
+//  Created by Danila on 27.08.2022.
 //
 
 import XCTest
 
 class AltfolioUITests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 

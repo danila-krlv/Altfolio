@@ -2,26 +2,25 @@
 //  MainCoordinatorTest.swift
 //  AltfolioTests
 //
-//  Created by Данила on 22.10.2022.
+//  Created by Danila on 22.10.2022.
 //
 
 import XCTest
 @testable import Altfolio
 
 class MainCoordinatorTest: XCTestCase {
+    var sut: MainCoordinator!
 
-    var sup: MainCoordinator!
-    
     override func setUpWithError() throws {
-        sup = MainCoordinator()
-        sup.start()
+        sut = MainCoordinator()
+        sut.start()
     }
 
     override func tearDownWithError() throws {
-        sup = nil
+        sut = nil
     }
 
     func testValueChildCoordinator() throws {
-        XCTAssertEqual(sup.childCoordinator.count, 2)
+        XCTAssertEqual(sut.childCoordinators.count, 2)
     }
 }

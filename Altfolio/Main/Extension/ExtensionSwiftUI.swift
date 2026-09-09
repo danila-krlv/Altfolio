@@ -2,7 +2,7 @@
 //  ExtensionSwiftUI.swift
 //  Altfolio
 //
-//  Created by Данила on 10.02.2023.
+//  Created by Danila on 10.02.2023.
 //
 
 import SwiftUI

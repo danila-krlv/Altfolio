@@ -2,18 +2,18 @@
 //  SearchCell.swift
 //  Altfolio
 //
-//  Created by Данила on 01.09.2022.
+//  Created by Danila on 01.09.2022.
 //
 
 import SwiftUI
 
 struct SearchCell: View {
     var coin: CoinOfCMC
-    
+
     var body: some View {
         HStack {
             AsyncImg(url: coin.logoUrl)
-            
+
             VStack(alignment: .leading, spacing: 0.0) {
                 HStack {
                     Text(coin.symbol)
@@ -23,7 +23,6 @@ struct SearchCell: View {
             }
             Spacer()
         }
-        .frame( height: 85)
+        .frame(height: 85)
     }
 }
-

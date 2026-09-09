@@ -33,16 +33,20 @@ let project = Project(
                 "Altfolio/Resources/Base.lproj/LaunchScreen.storyboard",
             ],
             dependencies: [.external(name: "Alamofire")],
-            settings: .settings(base: targetSettings.merging([
-                "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
-                "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
-                "GENERATE_INFOPLIST_FILE": "YES",
-                "INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents": "YES",
-                "INFOPLIST_KEY_UILaunchStoryboardName": "LaunchScreen",
-                "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone": "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight",
-                "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad": "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight",
-                "SWIFT_EMIT_LOC_STRINGS": "YES",
-            ], uniquingKeysWith: { _, new in new })),
+            settings: .settings(
+                base: targetSettings.merging(
+                    [
+                        "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+                        "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
+                        "GENERATE_INFOPLIST_FILE": "YES",
+                        "INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents": "YES",
+                        "INFOPLIST_KEY_UILaunchStoryboardName": "LaunchScreen",
+                        "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone":
+                            "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight",
+                        "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad":
+                            "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight",
+                        "SWIFT_EMIT_LOC_STRINGS": "YES",
+                    ], uniquingKeysWith: { _, new in new })),
             coreDataModels: [
                 .coreDataModel(
                     "Altfolio/Main/Managers/CoreData/Altfolio.xcdatamodeld"
@@ -82,7 +86,7 @@ let project = Project(
             archiveAction: .archiveAction(configuration: "Release"),
             profileAction: .profileAction(configuration: "Release"),
             analyzeAction: .analyzeAction(configuration: "Debug")
-        ),
+        )
     ],
     resourceSynthesizers: []
 )

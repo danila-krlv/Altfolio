@@ -2,34 +2,33 @@
 //  PortfolioTabCoordinatorTests.swift
 //  AltfolioTests
 //
-//  Created by Данила on 22.10.2022.
+//  Created by Danila on 22.10.2022.
 //
 
 import XCTest
 @testable import Altfolio
 
 class PortfolioCoordinatorTest: XCTestCase {
+    var sut: PortfolioCoordinator!
 
-    var sup: PortfolioCoordinator!
-    
     override func setUpWithError() throws {
-        sup = PortfolioCoordinator()
-        sup.start()
+        sut = PortfolioCoordinator()
+        sut.start()
     }
 
     override func tearDownWithError() throws {
-        sup = nil
+        sut = nil
     }
 
     func testViewModelNotNil() throws {
-        XCTAssertNotNil(sup.viewModel)
+        XCTAssertNotNil(sut.viewModel)
     }
-    
+
     func testViewModelCoinsMapNotNil() throws {
-        XCTAssertNotNil(sup.viewModel.coinsMap)
+        XCTAssertNotNil(sut.viewModel.coinsMap)
     }
-    
+
     func testPortfolioViewNotNil() throws {
-        XCTAssertNotNil(sup.portfolioView)
+        XCTAssertNotNil(sut.portfolioView)
     }
 }

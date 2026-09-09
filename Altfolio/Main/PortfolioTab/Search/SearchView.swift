@@ -2,20 +2,16 @@
 //  SearchView.swift
 //  Altfolio
 //
-//  Created by Данила on 29.08.2022.
+//  Created by Danila on 29.08.2022.
 //
 
 import SwiftUI
 
 struct SearchView: View {
-    
     @StateObject var viewModel: AddCoinViewModel
-    
-    var popSearchView: () -> () = { }
-    private func pop() {
-        popSearchView()
-    }
-    
+
+    var popSearchView: () -> Void = {}
+
     var body: some View {
         VStack {
             Image(systemName: "chevron.down")
@@ -31,14 +27,18 @@ struct SearchView: View {
                         .stroke(.gray, lineWidth: 1)
                 )
                 .padding(5)
-            List(viewModel.searchResults, id: \.self){ coin in
+            List(viewModel.searchResults, id: \.self) { coin in
                 SearchCell(coin: coin)
                     .onTapGesture {
                         viewModel.selected = coin
                         popSearchView()
                     }
-            }.listStyle(PlainListStyle())
+            }
+            .listStyle(PlainListStyle())
         }
     }
-}
 
+    private func pop() {
+        popSearchView()
+    }
+}
