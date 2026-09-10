@@ -2,19 +2,18 @@
 //  TotalBalance.swift
 //  Altfolio
 //
-//  Created by Данила on 27.08.2022.
+//  Created by Danila on 27.08.2022.
 //
 
 import SwiftUI
 
 struct TotalBalance: View {
-    
     var balance: Int
-    
+
     let backgroundGradient = LinearGradient(
         colors: [Color.gray, Color.blue],
         startPoint: .leading, endPoint: .trailing)
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 0.0) {
@@ -31,7 +30,7 @@ struct TotalBalance: View {
             .padding(.leading)
             Spacer()
         }
-        .frame( height: 115)
+        .frame(height: 115)
         .background(backgroundGradient)
         .cornerRadius(15.0)
         .overlay(

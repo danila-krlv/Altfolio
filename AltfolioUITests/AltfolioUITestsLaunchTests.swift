@@ -2,13 +2,12 @@
 //  AltfolioUITestsLaunchTests.swift
 //  AltfolioUITests
 //
-//  Created by Данила on 27.08.2022.
+//  Created by Danila on 27.08.2022.
 //
 
 import XCTest
 
 class AltfolioUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }

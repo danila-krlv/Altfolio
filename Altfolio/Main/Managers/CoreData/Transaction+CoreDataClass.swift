@@ -2,14 +2,12 @@
 //  Transaction+CoreDataClass.swift
 //  Altfolio
 //
-//  Created by Данила on 10.11.2022.
-//
+//  Created by Danila on 10.11.2022.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(Transaction)
 public class Transaction: NSManagedObject {
-
 }

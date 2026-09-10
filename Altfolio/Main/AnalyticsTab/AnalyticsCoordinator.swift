@@ -2,28 +2,23 @@
 //  AnalyticsCoordinator.swift
 //  Altfolio
 //
-//  Created by Данила on 27.08.2022.
+//  Created by Danila on 27.08.2022.
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 class AnalyticsCoordinator {
-    
     var rootViewController: UINavigationController
+
     private var viewModel: AnalyticsViewModel
-    
-    private let coreData: CoreDataProtocol
-    private let network: NetworkProtocol
-    
+
     private lazy var analyticsView: AnalyticsView = {
-        var view = AnalyticsView(viewModel: viewModel)
+        let view = AnalyticsView(viewModel: viewModel)
         return view
     }()
-    
-    init(coreData: CoreDataProtocol, network: NetworkProtocol) {
-        self.coreData = coreData
-        self.network = network
+
+    init(coreData: CoreDataProtocol) {
         rootViewController = UINavigationController()
         rootViewController.navigationBar.backgroundColor = .clear
         rootViewController.navigationBar.prefersLargeTitles = false
@@ -35,7 +30,6 @@ class AnalyticsCoordinator {
 // MARK: - CoordinatorProtocol
 extension AnalyticsCoordinator: CoordinatorProtocol {
     func start() {
-        viewModel.fetchMyCoins()
-        rootViewController.setViewControllers( [UIHostingController(rootView: analyticsView)] , animated: true)
+        rootViewController.setViewControllers([UIHostingController(rootView: analyticsView)], animated: true)
     }
 }

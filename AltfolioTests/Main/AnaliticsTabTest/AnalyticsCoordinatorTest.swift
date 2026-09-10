@@ -2,31 +2,26 @@
 //  AnalyticsCoordinatorTest.swift
 //  AltfolioTests
 //
-//  Created by Данила on 11.11.2022.
+//  Created by Danila on 11.11.2022.
 //
 
+import SwiftUI
 import XCTest
 @testable import Altfolio
 
-class AnalyticsCoordinatorTest: XCTestCase {
+@MainActor
+final class AnalyticsCoordinatorTest: XCTestCase {
+    func testStartInstallsAnalyticsScreenUsingInjectedStorage() throws {
+        let storage = CoordinatorStorageSpy()
+        let sut = AnalyticsCoordinator(coreData: storage)
 
-    var sup: AnalyticsCoordinator!
-    
-    override func setUpWithError() throws {
-        sup = AnalyticsCoordinator()
-        sup.start()
-    }
+        sut.start()
 
-    override func tearDownWithError() throws {
-        sup = nil 
+        XCTAssertEqual(sut.rootViewController.viewControllers.count, 1)
+        let screen = try XCTUnwrap(sut.rootViewController.viewControllers.first as? UIHostingController<AnalyticsView>)
+        let previousFetchCount = storage.fetchCount
+        screen.rootView.viewModel.fetchMyCoins()
+        XCTAssertEqual(storage.fetchCount, previousFetchCount + 1)
+        XCTAssertTrue(screen.rootView.viewModel.pieSlices.isEmpty)
     }
-
-    func testViewModelNotNil() throws {
-        XCTAssertNotNil(sup.viewModel)
-    }
-    
-    func testPortfolioViewNotNil() throws {
-        XCTAssertNotNil(sup.analyticsView)
-    }
-
 }

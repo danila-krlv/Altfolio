@@ -2,36 +2,32 @@
 //  PortfolioView.swift
 //  Altfolio
 //
-//  Created by Данила on 27.08.2022.
+//  Created by Danila on 27.08.2022.
 //
 
 import SwiftUI
 
 struct PortfolioView: View {
     @ObservedObject var viewModel: PortfolioViewModel
-    
-    
+
+    var showAddCoin: () -> Void = {}
+    var showDetails: (Coin) -> Void = { _ in }
+
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var isVisible = false
+
     init(viewModel: PortfolioViewModel) {
         self.viewModel = viewModel
     }
-    
-    var showAddCoin: () -> () = { }
-    private func addItem() {
-        showAddCoin()
-    }
-    var showDetails: (Coin) -> () = { _ in }
-    private func showDetail(_ coin: Coin) {
-        showDetails(coin)
-    }
-    
+
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading , spacing: 5.0) {
+            VStack(alignment: .leading, spacing: 5.0) {
                 TotalBalance(balance: viewModel.totalBalance)
                     .padding(.leading, 15)
                     .padding(.trailing, 15)
-                
-                List() {
+
+                List {
                     if #available(iOS 15.0, *) {
                         Text("Tracking list")
                             .frame(maxWidth: .infinity, alignment: .center)
@@ -48,21 +44,48 @@ struct PortfolioView: View {
                                 showDetails(obj)
                             }
                     }
-                }.listStyle( .plain )
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading ) {
-                            Text("Porfolio tracker").font(.headline)
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing ) {
-                            Button(action: addItem) {
-                                Label("Add Item", systemImage: "plus")
-                                    .font(.title)
-                            }.padding(1.0)
-                        }
+                }
+                .listStyle(.plain)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("Portfolio tracker").font(.headline)
                     }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: addItem) {
+                            Label("Add Item", systemImage: "plus")
+                                .font(.title)
+                        }
+                        .padding(1.0)
+                    }
+                }
             }
         }
+        .onAppear {
+            isVisible = true
+            if scenePhase == .active {
+                viewModel.startPriceUpdates()
+            }
+        }
+        .onDisappear {
+            isVisible = false
+            viewModel.stopPriceUpdates()
+        }
+        .onChange(of: scenePhase) { phase in
+            if isVisible && phase == .active {
+                viewModel.startPriceUpdates()
+            } else {
+                viewModel.stopPriceUpdates()
+            }
+        }
+    }
+
+    private func addItem() {
+        showAddCoin()
+    }
+
+    private func showDetail(_ coin: Coin) {
+        showDetails(coin)
     }
 }
 

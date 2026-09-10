@@ -2,15 +2,14 @@
 //  AsyncImg.swift
 //  Altfolio
 //
-//  Created by Данила on 04.11.2022.
+//  Created by Danila on 04.11.2022.
 //
 
 import SwiftUI
 
 struct AsyncImg: View {
-    
     var url: String
-    
+
     var body: some View {
         AsyncImage(url: URL(string: url)) { phase in
             switch phase {

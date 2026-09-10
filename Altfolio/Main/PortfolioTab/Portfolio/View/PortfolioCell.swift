@@ -2,27 +2,26 @@
 //  PortfolioCell.swift
 //  Altfolio
 //
-//  Created by Данила on 27.08.2022.
+//  Created by Danila on 27.08.2022.
 //
 
 import SwiftUI
 
 struct PortfolioCell: View {
-    
     @ObservedObject var object: Coin
-    
+
     var body: some View {
         HStack {
-            AsyncImg(url: object.logoUrl )
-            
+            AsyncImg(url: object.logoUrl)
+
             VStack(alignment: .leading, spacing: 0.0) {
                 HStack {
-                    Text(object.symbol )
+                    Text(object.symbol)
                         .font(.title)
                         .scaledToFill()
                         .lineLimit(1)
                         .minimumScaleFactor(5)
-                    Text(object.name )
+                    Text(object.name)
                         .scaledToFill()
                         .lineLimit(1)
                         .minimumScaleFactor(1)
@@ -38,6 +37,6 @@ struct PortfolioCell: View {
                 .minimumScaleFactor(0.5)
                 .lineLimit(1)
         }
-        .frame( height: 85)
+        .frame(height: 85)
     }
 }
