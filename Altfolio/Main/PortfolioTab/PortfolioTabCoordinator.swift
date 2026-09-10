@@ -83,7 +83,7 @@ final class PortfolioCoordinator {
 
     // MARK: - Navigation Details
     private func showDetails(coin: Coin) {
-        guard let coinCD = viewModel.coinsCD.filter({ $0.symbol == coin.symbol }).first else {
+        guard let coinCD = viewModel.coinsCD.first(where: { $0.id == coin.id }) else {
             print("error guard")
             return
         }
@@ -113,17 +113,19 @@ final class PortfolioCoordinator {
 // MARK: - CoordinatorProtocol
 extension PortfolioCoordinator: CoordinatorProtocol {
     func start() {
-        //    viewModel.resetAllRecords()
         viewModel.fetchMyCoins()
-        viewModel.updateAllPrices()
 
         rootViewController.setViewControllers([UIHostingController(rootView: portfolioView)], animated: true)
 
-        DispatchQueue.main.async {
-            self.network.fetchMap { [weak self] coins in
-                guard let strongSelf = self else { return }
-                strongSelf.viewModel.coinsMap = coins
-                strongSelf.viewModel.updateURL()
+        network.fetchMap { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let coins):
+                self.viewModel.networkError = nil
+                self.viewModel.coinsMap = coins
+                self.viewModel.updateURL()
+            case .failure(let error):
+                self.viewModel.networkError = error
             }
         }
     }

@@ -11,9 +11,6 @@ import UIKit
 class AnalyticsCoordinator {
     var rootViewController: UINavigationController
 
-    private let coreData: CoreDataProtocol
-    private let network: NetworkProtocol
-
     private var viewModel: AnalyticsViewModel
 
     private lazy var analyticsView: AnalyticsView = {
@@ -21,9 +18,7 @@ class AnalyticsCoordinator {
         return view
     }()
 
-    init(coreData: CoreDataProtocol, network: NetworkProtocol) {
-        self.coreData = coreData
-        self.network = network
+    init(coreData: CoreDataProtocol) {
         rootViewController = UINavigationController()
         rootViewController.navigationBar.backgroundColor = .clear
         rootViewController.navigationBar.prefersLargeTitles = false
@@ -35,7 +30,6 @@ class AnalyticsCoordinator {
 // MARK: - CoordinatorProtocol
 extension AnalyticsCoordinator: CoordinatorProtocol {
     func start() {
-        viewModel.fetchMyCoins()
         rootViewController.setViewControllers([UIHostingController(rootView: analyticsView)], animated: true)
     }
 }

@@ -8,14 +8,15 @@
 import Alamofire
 import Foundation
 
+// Completions are called once on the main queue, for both success and failure.
 protocol NetworkProtocol {
-    func fetchMap(completion: @escaping (_ coins: [CoinOfCMC]) -> Void)
-    func fetchLogoURL(id: String, completion: @escaping (_ logoString: [String]) -> Void)
+    func fetchMap(completion: @escaping (Result<[CoinOfCMC], NetworkError>) -> Void)
+    func fetchLogoURL(id: String, completion: @escaping (Result<String, NetworkError>) -> Void)
     func fetchLogoUrlArray(
-        idString: String, idArray: [String], completion: @escaping (_ logoDict: [String: String]) -> Void)
-    func fetchImg(url: String, completion: @escaping (_ imageData: Data) -> Void)
+        idString: String, idArray: [String], completion: @escaping (Result<[String: String], NetworkError>) -> Void)
+    func fetchImg(url: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
     func fetchPriceArray(
-        idString: String, idArray: [String], completion: @escaping (_ logoDict: [String: Double]) -> Void)
+        idString: String, idArray: [String], completion: @escaping (Result<[String: Double], NetworkError>) -> Void)
 }
 
 final class NetworkManager {
@@ -23,145 +24,122 @@ final class NetworkManager {
         "Accepts": "application/json",
         "X-CMC_PRO_API_KEY": "e90479d1-ff9e-4551-85bc-fb25b4863739",/// use CoinMarketCap api key
     ]
+
+    private func request<Payload: Decodable, Value>(
+        _ url: String,
+        parameters: Parameters,
+        transform: @escaping (Payload) throws -> Value,
+        completion: @escaping (Result<Value, NetworkError>) -> Void
+    ) {
+        AF.request(url, parameters: parameters, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseData(queue: .main) { response in
+                switch response.result {
+                case .success(let data):
+                    do {
+                        let payload = try JSONDecoder().decode(CMCResponse<Payload>.self, from: data).data
+                        completion(.success(try transform(payload)))
+                    } catch let error as NetworkError {
+                        completion(.failure(error))
+                    } catch {
+                        completion(.failure(.decodingFailed(error)))
+                    }
+                case .failure(let error):
+                    // API errors may arrive with a non-successful HTTP status and no data payload.
+                    if let data = response.data,
+                        let apiResponse = try? JSONDecoder().decode(CMCErrorResponse.self, from: data),
+                        apiResponse.status.errorCode != 0
+                    {
+                        completion(
+                            .failure(
+                                .api(
+                                    code: apiResponse.status.errorCode,
+                                    message: apiResponse.status.errorMessage
+                                )))
+                    } else {
+                        completion(.failure(.requestFailed(error)))
+                    }
+                }
+            }
+    }
 }
 
 // MARK: - NetworkProtocol
 extension NetworkManager: NetworkProtocol {
-    func fetchMap(completion: @escaping (_ coins: [CoinOfCMC]) -> Void) {
-        let urlBasic = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map"
-        let parameters: Parameters = [
-            "start": "1",
-            "limit": "1000",
-        ]
-
-        guard let url = URL(string: urlBasic) else { return }
-        AF.request(url, parameters: parameters, headers: headers).responseData { response in
-            switch response.result {
-            case .success(let value):
-                do {
-                    let asJSON = try JSONSerialization.jsonObject(with: value)
-                    guard let responseDictionary = asJSON as? NSDictionary else { return }
-                    guard let data = responseDictionary.object(forKey: "data") else { return }
-                    guard let coins = CoinOfCMC.getArray(from: data) else { return }
-                    completion(coins)
-                } catch {
-                    print("Error while decoding response: \(error)")
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+    func fetchMap(completion: @escaping (Result<[CoinOfCMC], NetworkError>) -> Void) {
+        request(
+            "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map",
+            parameters: ["start": "1", "limit": "1000"],
+            transform: { (coins: [CMCCoin]) in coins.map { $0.coin } },
+            completion: completion
+        )
     }
 
-    func fetchLogoURL(id: String, completion: @escaping (_ logoString: [String]) -> Void) {
-        let url = "https://pro-api.coinmarketcap.com/v2/cryptocurrency/info"
-        let parameters: Parameters = [
-            "id": id,
-            "aux": "logo",
-        ]
-
-        guard let url = URL(string: url) else { return }
-        AF.request(url, parameters: parameters, headers: headers).responseData { (response) in
-            switch response.result {
-            case .success(let value):
-                do {
-                    let asJSON = try JSONSerialization.jsonObject(with: value)
-
-                    guard let responseDictionary = asJSON as? NSDictionary else { return }
-                    guard let data = responseDictionary.object(forKey: "data") as? NSDictionary else { return }
-                    guard let idData = data.object(forKey: id) as? NSDictionary else { return }
-                    guard let string = idData.object(forKey: "logo") as? String else { return }
-                    let arrStr = [string]
-                    completion(arrStr)
-                } catch {
-                    print("Error while decoding response: \(error)")
-                }
-            case .failure(let error):
-                print(error)
-            }
+    func fetchLogoURL(id: String, completion: @escaping (Result<String, NetworkError>) -> Void) {
+        fetchLogoUrlArray(idString: id, idArray: [id]) { result in
+            completion(
+                result.flatMap { logos in
+                    guard let logo = logos[id] else {
+                        return .failure(.missingData("Logo for coin \(id)"))
+                    }
+                    return .success(logo)
+                })
         }
     }
 
     func fetchLogoUrlArray(
-        idString: String, idArray: [String], completion: @escaping (_ logoDict: [String: String]) -> Void
+        idString: String, idArray: [String], completion: @escaping (Result<[String: String], NetworkError>) -> Void
     ) {
-        let url = "https://pro-api.coinmarketcap.com/v2/cryptocurrency/info"
-        let parameters: Parameters = [
-            "id": idString,
-            "aux": "logo",
-        ]
-
-        guard let url = URL(string: url) else { return }
-        AF.request(url, parameters: parameters, headers: headers).responseData { (response) in
-            switch response.result {
-            case .success(let value):
-                do {
-                    let asJSON = try JSONSerialization.jsonObject(with: value)
-                    guard let responseDictionary = asJSON as? NSDictionary else { return }
-                    guard let data = responseDictionary.object(forKey: "data") as? NSDictionary else { return }
-
-                    var dict = [String: String]()
-
-                    for id in idArray {
-                        guard let idData = data.object(forKey: id) as? NSDictionary else { return }
-                        guard let string = idData.object(forKey: "logo") as? String else { return }
-                        dict[id] = string
+        request(
+            "https://pro-api.coinmarketcap.com/v2/cryptocurrency/info",
+            parameters: ["id": idString, "aux": "logo"],
+            transform: { (metadata: [String: CMCMetadata]) in
+                var logos = [String: String]()
+                for id in idArray {
+                    guard let coin = metadata[id] else {
+                        throw NetworkError.missingData("Metadata for coin \(id)")
                     }
-                    completion(dict)
-                } catch {
-                    print("Error while decoding response: \(error)")
+                    logos[id] = coin.logo
                 }
-            case .failure(let error):
-                print("Request failed with error \(error)")
-            }
-        }
+                return logos
+            },
+            completion: completion
+        )
     }
 
-    func fetchImg(url: String, completion: @escaping (_ imageData: Data) -> Void) {
-        guard let url = URL(string: url) else { return }
-        AF.request(url).responseData { (response) in
-            switch response.result {
-            case .success(let data):
-                completion(data)
-            case .failure(let error):
-                print(error)
-            }
+    func fetchImg(url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+        guard let url = URL(string: url),
+            let scheme = url.scheme?.lowercased(),
+            ["http", "https"].contains(scheme),
+            let host = url.host, !host.isEmpty
+        else {
+            DispatchQueue.main.async { completion(.failure(.invalidURL)) }
+            return
         }
+        AF.request(url)
+            .validate(statusCode: 200..<300)
+            .responseData(queue: .main) { response in
+                completion(response.result.mapError { .requestFailed($0) })
+            }
     }
 
     func fetchPriceArray(
-        idString: String, idArray: [String], completion: @escaping (_ logoDict: [String: Double]) -> Void
+        idString: String, idArray: [String], completion: @escaping (Result<[String: Double], NetworkError>) -> Void
     ) {
-        let url = "https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest"
-        let parameters: Parameters = [
-            "id": idString
-        ]
-
-        guard let url = URL(string: url) else { return }
-        AF.request(url, parameters: parameters, headers: headers).responseData { (response) in
-            switch response.result {
-            case .success(let value):
-                do {
-                    let asJSON = try JSONSerialization.jsonObject(with: value)
-                    guard let responseDictionary = asJSON as? NSDictionary else { return }
-                    guard let data = responseDictionary.object(forKey: "data") as? NSDictionary else { return }
-
-                    var dict = [String: Double]()
-
-                    for id in idArray {
-                        guard let idData = data.object(forKey: id) as? NSDictionary else { return }
-                        guard let quote = idData.object(forKey: "quote") as? NSDictionary else { return }
-                        guard let usdPrice = quote.object(forKey: "USD") as? NSDictionary else { return }
-                        guard let price = usdPrice.object(forKey: "price") as? Double else { return }
-                        dict[id] = price
+        request(
+            "https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest",
+            parameters: ["id": idString],
+            transform: { (quotes: [String: CMCQuote]) in
+                var prices = [String: Double]()
+                for id in idArray {
+                    guard let price = quotes[id]?.quote["USD"]?.price else {
+                        throw NetworkError.missingData("USD price for coin \(id)")
                     }
-                    completion(dict)
-                } catch {
-                    print("Error while decoding response: \(error)")
+                    prices[id] = price
                 }
-            case .failure(let error):
-                print("Request failed with error \(error)")
-            }
-        }
+                return prices
+            },
+            completion: completion
+        )
     }
 }

@@ -13,6 +13,7 @@ final class AddCoinViewModel: ObservableObject {
     @Published var ticker = "btc"
     @Published var amount = ""
     @Published var searchText = ""
+    @Published private(set) var networkError: NetworkError?
 
     private let network: NetworkProtocol
 
@@ -29,10 +30,15 @@ final class AddCoinViewModel: ObservableObject {
     }
 
     func updateSelected() {
-        DispatchQueue.main.async {
-            self.network.fetchLogoURL(id: self.selected.id) { [weak self] logoString in
-                guard let strongSelf = self else { return }
-                strongSelf.selected.logoUrl = logoString[0]
+        let coinID = selected.id
+        networkError = nil
+        network.fetchLogoURL(id: coinID) { [weak self] result in
+            guard let self = self, self.selected.id == coinID else { return }
+            switch result {
+            case .success(let logoURL):
+                self.selected.logoUrl = logoURL
+            case .failure(let error):
+                self.networkError = error
             }
         }
     }
