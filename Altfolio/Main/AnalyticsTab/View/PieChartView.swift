@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PieChart: View {
+
     @ObservedObject private var viewModel: AnalyticsViewModel
     @State private var indexOfTappedSlice = -1
     @State private var show = false
@@ -31,8 +32,11 @@ struct PieChart: View {
                             )
                             .stroke(
                                 Color(
-                                    red: viewModel.pieSlices[index].r, green: viewModel.pieSlices[index].g,
-                                    blue: viewModel.pieSlices[index].b), lineWidth: 100
+                                    red: viewModel.pieSlices[index].r,
+                                    green: viewModel.pieSlices[index].g,
+                                    blue: viewModel.pieSlices[index].b
+                                ),
+                                lineWidth: 100
                             )
                             .scaleEffect(index == indexOfTappedSlice ? 1.1 : 1.0)
                             .animation(.spring(), value: show)
@@ -48,8 +52,10 @@ struct PieChart: View {
                         RoundedRectangle(cornerRadius: 3)
                             .fill(
                                 Color(
-                                    red: viewModel.pieSlices[index].r, green: viewModel.pieSlices[index].g,
-                                    blue: viewModel.pieSlices[index].b)
+                                    red: viewModel.pieSlices[index].r,
+                                    green: viewModel.pieSlices[index].g,
+                                    blue: viewModel.pieSlices[index].b
+                                )
                             )
                             .frame(width: 15, height: 15)
                     }

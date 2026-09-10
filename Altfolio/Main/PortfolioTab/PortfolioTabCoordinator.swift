@@ -113,22 +113,19 @@ final class PortfolioCoordinator {
 // MARK: - CoordinatorProtocol
 extension PortfolioCoordinator: CoordinatorProtocol {
     func start() {
-        //    viewModel.resetAllRecords()
         viewModel.fetchMyCoins()
 
         rootViewController.setViewControllers([UIHostingController(rootView: portfolioView)], animated: true)
 
-        DispatchQueue.main.async {
-            self.network.fetchMap { [weak self] result in
-                guard let strongSelf = self else { return }
-                switch result {
-                case .success(let coins):
-                    strongSelf.viewModel.networkError = nil
-                    strongSelf.viewModel.coinsMap = coins
-                    strongSelf.viewModel.updateURL()
-                case .failure(let error):
-                    strongSelf.viewModel.networkError = error
-                }
+        network.fetchMap { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let coins):
+                self.viewModel.networkError = nil
+                self.viewModel.coinsMap = coins
+                self.viewModel.updateURL()
+            case .failure(let error):
+                self.viewModel.networkError = error
             }
         }
     }

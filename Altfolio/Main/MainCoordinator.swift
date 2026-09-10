@@ -11,12 +11,14 @@ import UIKit
 
 final class MainCoordinator {
     var rootViewController: UITabBarController
-    private let coreDataManager = CoreDataManager()
-    private let networkManager = NetworkManager()
+    private let coreDataManager: CoreDataProtocol
+    private let networkManager: NetworkProtocol
 
     private var childCoordinators = [CoordinatorProtocol]()
 
-    init() {
+    init(coreData: CoreDataProtocol = CoreDataManager(), network: NetworkProtocol = NetworkManager()) {
+        coreDataManager = coreData
+        networkManager = network
         rootViewController = UITabBarController()
         rootViewController.tabBar.isTranslucent = true
     }
@@ -31,13 +33,15 @@ final class MainCoordinator {
 
 extension MainCoordinator: CoordinatorProtocol {
     func start() {
+        guard childCoordinators.isEmpty else { return }
+
         let portfolioCoordinator = PortfolioCoordinator(coreData: coreDataManager, network: networkManager)
         portfolioCoordinator.start()
         childCoordinators.append(portfolioCoordinator)
         let portfolioView = portfolioCoordinator.rootViewController
         setup(vc: portfolioView, title: "Home", imageName: "paperplane", selectedImageName: "paperplane.fill")
 
-        let analyticsCoordinator = AnalyticsCoordinator(coreData: coreDataManager, network: networkManager)
+        let analyticsCoordinator = AnalyticsCoordinator(coreData: coreDataManager)
         analyticsCoordinator.start()
         childCoordinators.append(analyticsCoordinator)
         let analyticsView = analyticsCoordinator.rootViewController
